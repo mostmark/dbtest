@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 @WebServlet(name = "TestServlet", urlPatterns = {"/TestServlet"})
 public class TestServlet extends HttpServlet {
     
-    @Resource(lookup = "java:jboss/datasources/test-mysql")
+    @Resource(lookup = "java:jboss/datasources/test_mysql")
     private DataSource dataSource;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
