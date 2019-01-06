@@ -25,11 +25,13 @@ public class DbInitializer {
     }
 
     public void initializeDb() {
-        if (!tablesExists()) {
+        
+        if (!tableExist("emp")) {
             try {
                 System.out.println("CREATING TABLES AND INSERTING DATA...");
 
                 Connection connection = dataSource.getConnection();
+                
                 Statement stmt = connection.createStatement();
                 stmt.executeUpdate("DROP TABLE IF EXISTS emp");
                 stmt.executeUpdate("DROP TABLE IF EXISTS dept");
@@ -68,23 +70,27 @@ public class DbInitializer {
 
     }
 
-    private boolean tablesExists() {
-        boolean exists = false;
+    private boolean tableExist(String tableName) {
+        boolean tExists = false;
 
         try {
             Connection connection = dataSource.getConnection();
-            Statement stmt = connection.createStatement();
-            ResultSet resultSet = stmt.executeQuery("SELECT ename, job FROM emp ORDER BY ename");
-            resultSet.close();
-            stmt.close();
-            connection.close();
-            exists = true;
-        } catch (SQLException e) {
-            exists = false;
-            System.out.println("TABLE DOES NOT SEEM TO EXIST WHEN CHECKING. ERROR MESSAGE = " + e.getMessage());
-        }
 
-        return exists;
+            try (ResultSet rs = connection.getMetaData().getTables(null, null, tableName, null)) {
+                while (rs.next()) {
+                    String tName = rs.getString("TABLE_NAME");
+                    if (tName != null && tName.equals(tableName)) {
+                        tExists = true;
+                        break;
+                    }
+                }
+                rs.close();
+            }
+            connection.close();
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
+        return tExists;
     }
 
 }

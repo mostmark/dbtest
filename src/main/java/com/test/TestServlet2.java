@@ -21,15 +21,15 @@ public class TestServlet2 extends HttpServlet {
     private DataSource dataSource;
 
     @EJB
-    DbInitializer dbInitializer;
+    DbInitializer2 dbInitializer2;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        if(!dbInitializer.isInitialized()){
+        if(!dbInitializer2.isInitialized()){
             System.out.println("================= INITIALIZING DB =================");
-            dbInitializer.initializeDb();
+            dbInitializer2.initializeDb();
         }
         else{
             System.out.println("DB ALREADY INITIALIZED....");
