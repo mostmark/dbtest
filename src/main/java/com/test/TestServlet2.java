@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 @WebServlet(name = "TestServlet2", urlPatterns = {"/TestServlet2"})
 public class TestServlet2 extends HttpServlet {
 
-    @Resource(lookup = "java:jboss/datasources/test_pgsql")
+    @Resource(lookup = "java:jboss/datasources/test2_postgresql")
     private DataSource dataSource;
 
     @EJB
