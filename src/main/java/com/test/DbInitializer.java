@@ -27,6 +27,7 @@ public class DbInitializer {
     public void initializeDb() {
         if (!tablesExists()) {
             try {
+                System.out.println("CREATING TABLES AND INSERTING DATA...");
 
                 Connection connection = dataSource.getConnection();
                 Statement stmt = connection.createStatement();
@@ -80,7 +81,7 @@ public class DbInitializer {
             exists = true;
         } catch (SQLException e) {
             exists = false;
-            e.printStackTrace();
+            System.out.println("TABLE DOES NOT SEEM TO EXIST WHEN CHECKING. ERROR MESSAGE = " + e.getMessage());
         }
 
         return exists;
