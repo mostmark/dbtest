@@ -13,7 +13,7 @@ public class DbInitializer2 {
 
     private boolean initialized = false;
 
-    @Resource(lookup = "java:jboss/datasources/test_pgsql")
+    @Resource(lookup = "java:jboss/datasources/test2_postgresql")
     private DataSource dataSource;
 
     public boolean isInitialized() {
